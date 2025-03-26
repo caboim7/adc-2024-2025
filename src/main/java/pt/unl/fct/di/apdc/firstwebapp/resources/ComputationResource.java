@@ -36,13 +36,13 @@ public class ComputationResource {
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response hello() throws IOException{
-		try {
+	public Response hello(){
+		try{
 			throw new IOException("UPS");
-		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Exception on Method /hello", e);
+		} catch (IOException e) {
+            LOG.log(Level.SEVERE, "Exception on Method /hello", e);
 			return Response.temporaryRedirect(URI.create("/error/500.html")).build();
-		}
+        }
 	}
 	
 	@GET
@@ -52,6 +52,7 @@ public class ComputationResource {
 		LOG.fine("Replying to date request.");
 		return Response.ok().entity(g.toJson(fmt.format(new Date()))).build();
 	}
+
 	
 	@GET
 	@Path("/compute")
